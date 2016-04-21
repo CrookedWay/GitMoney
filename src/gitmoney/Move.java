@@ -158,6 +158,7 @@ public class Move {
                     t2 += card;
                 }
             }
+            // if total 1 or total 2 == 12
             if (t1 == 2 || t2 == 12) {
                 int flip = flip();
                 if (flip == 0) {
@@ -165,8 +166,8 @@ public class Move {
                     return "hit";
                 } else { /* use t2 */
 
-                    if (dealer_hand.contains(4) || dealer_hand.contains(5)
-                            || dealer_hand.contains(6)) {
+                    if (dealer_hand.get(0)==4 || dealer_hand.get(0) == 5
+                            || dealer_hand.get(0) == 6) {
                         return "stand";
                     } else { /* if dealer_hand has 2,3 or 7:11 */
 
@@ -180,8 +181,8 @@ public class Move {
                     return "hit";
                 } else { /* else use t2 */
 
-                    if (dealer_hand.contains(2) || dealer_hand.contains(3)
-                            || dealer_hand.contains(4) || dealer_hand.contains(6)) {
+                    if (dealer_hand.get(0) == 2 || dealer_hand.get(0) == 3
+                            || dealer_hand.get(0) == 4 || dealer_hand.get(0) == 6) {
                         return "stand";
                     } else { /* if dealer_hand has 7:11 */
 
@@ -202,23 +203,38 @@ public class Move {
                 } else { /* will not get here but, use t1 */
 
                     if (t1 == 9) {
-                        if (dealer_hand.contains(3) || dealer_hand.contains(4)
-                                || dealer_hand.contains(5) || dealer_hand.contains(6)) {
-                            return "double down";
+                        if (dealer_hand.get(0) == 3 || dealer_hand.get(0) == 4
+                                || dealer_hand.get(0) == 5 || dealer_hand.get(0) == 6) {
+                            // double down only if player has 2 cards
+                            if (player_hand.size() == 2){
+                                return "double down";
+                            } else { /* else hit */
+                                return "hit";
+                            }
                         } else {
                             return "hit";
                         }
                     } else if (t1 == 10) {
-                        if (dealer_hand.contains(10) || dealer_hand.contains(Card.ACE)) {
+                        if (dealer_hand.get(0) == 10 || dealer_hand.get(0) == Card.ACE) {
                             return "hit";
                         } else {
-                            return "double down";
+                            // double down only if player has 2 cards
+                            if (player_hand.size() == 2){
+                                return "double down";
+                            } else { /* else hit */
+                                return "hit";
+                            }
                         }
                     } else if (t1 == 11) {
-                        if (dealer_hand.contains(Card.ACE)) {
+                        if (dealer_hand.get(0) == Card.ACE) {
                             return "hit";
                         } else {
-                            return "double down";
+                            // double down only if player has 2 cards
+                            if (player_hand.size() == 2){
+                                return "double down";
+                            } else { /* else hit */
+                                return "hit";
+                            }
                         }
                     } else {
                         return null;
@@ -226,8 +242,8 @@ public class Move {
 
                 }
             } else if (t1 == 12) {
-                if (dealer_hand.contains(4) || dealer_hand.contains(5)
-                        || dealer_hand.contains(6)) {
+                if (dealer_hand.get(0) == 4 || dealer_hand.get(0) == 5
+                        || dealer_hand.get(0) == 6) {
                     return "stand";
                 } else { /* if dealer has 2,3 or 7:11 */
 
@@ -246,41 +262,39 @@ public class Move {
             if (total <= 8) {
                 return "hit";
             } else if (total == 9) {
-                if (dealer_hand.contains(3) || dealer_hand.contains(4)
-                        || dealer_hand.contains(5) || dealer_hand.contains(6)) {
+                if (dealer_hand.get(0) == 3 || dealer_hand.get(0) == 4
+                        || dealer_hand.get(0) == 5 || dealer_hand.get(0) == 6) {
                     return "double down";
                 } else { /* if 2 or 7 and above*/
 
                     return "hit";
                 }
             } else if (total == 10) {
-                if (dealer_hand.contains(2) || dealer_hand.contains(3)
-                        || dealer_hand.contains(4) || dealer_hand.contains(5)
-                        || dealer_hand.contains(6) || dealer_hand.contains(7)
-                        || dealer_hand.contains(8) || dealer_hand.contains(9)) {
+                if (dealer_hand.get(0) == 2 || dealer_hand.get(0) == 3
+                        || dealer_hand.get(0) == 4 || dealer_hand.get(0) == 5
+                        || dealer_hand.get(0) == 6 || dealer_hand.get(0) == 7
+                        || dealer_hand.get(0) == 8 || dealer_hand.get(0) == 9) {
                     return "double down";
                 } else {/* if 10 or ACE*/
 
                     return "hit";
                 }
             } else if (total == 11) {
-                if (dealer_hand.contains(Card.ACE)) {
+                if (dealer_hand.get(0) == Card.ACE) {
                     return "hit";
                 } else { /* if 2:10 */
-
                     return "double down";
                 }
             } else if (total == 12) {
-                if (dealer_hand.contains(4) || dealer_hand.contains(5)
-                        || dealer_hand.contains(6)) {
+                if (dealer_hand.get(0) == 4 || dealer_hand.get(0) == 5
+                        || dealer_hand.get(0) == 6) {
                     return "stand";
                 } else { /* if 2,3 or 7 and above */
-
                     return "hit";
                 }
             } else if (total >= 13 && total <= 16) {
-                if (dealer_hand.contains(7) || dealer_hand.contains(8)
-                        || dealer_hand.contains(9) || dealer_hand.contains(10)) {
+                if (dealer_hand.get(0) == 7 || dealer_hand.get(0) == 8
+                        || dealer_hand.get(0) == 9 || dealer_hand.get(0) == 10) {
                     return "hit";
                 } else { /* if 2:6 */
 
