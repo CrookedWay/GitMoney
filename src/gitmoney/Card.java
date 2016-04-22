@@ -156,7 +156,7 @@ public class Card {
 	public boolean equals(Card a){
 		return (simpleString().equals(a.simpleString()));
 	}
-
+/*
     public static void main(String[] args) {
     	
     	// must run program with -ea flag (java -ea ..) to
@@ -180,5 +180,5 @@ public class Card {
         assert suitToString(HEARTS) == "Hearts";
         assert suitToString(SPADES) == "Spades";
 
-    }
+    }*/
 }
