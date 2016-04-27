@@ -16,7 +16,7 @@ public class Move {
      * @param dealer_hand
      * @return string of "what to do"
      */
-    String dealer_move(ArrayList<Integer> dealer_hand) {
+    public static Boolean dealer_move(ArrayList<Integer> dealer_hand) {
         // Check if dealer has an ace
         if (dealer_hand.contains(Card.ACE)) {
             // get total t2: assuming ace = 11
@@ -43,11 +43,11 @@ public class Move {
             }
             // check if greater is less than 17
             if (greater < 17) {
-                return "hit";
+                return true;
             } else if (greater < 22) {
-                return "stand";
+                return false;
             } else {
-                return null; // catch if something went wrong.
+                return false; // catch if something went wrong.
             }
         } else { /* if dealer doesn't have an ACE */
 
@@ -59,13 +59,12 @@ public class Move {
             }
             // check if total is less than 17
             if (total < 17) {
-                return "hit";
+                return true;
             } // check if total is less than 22
             else if (total < 22) {
-                return "stand";
+                return false;
             } else { /* if greater than 21, dealer busts and return null */
-
-                return null;
+                return false;
             }
         }
     }

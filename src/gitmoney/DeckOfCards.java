@@ -79,6 +79,11 @@ package gitmoney;
 	 }
    	 return ( s );
       }
+	public int cardsLeft()
+	{
+		return NCARDS - currentCard;
+		
+	}
 	  
 	  public String toString(){
 	  
