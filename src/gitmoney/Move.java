@@ -16,7 +16,7 @@ public class Move {
      * @param dealer_hand
      * @return string of "what to do"
      */
-    public static Boolean dealer_move(ArrayList<Integer> dealer_hand) {
+    static String dealer_move(ArrayList<Integer> dealer_hand) {
         // Check if dealer has an ace
         if (dealer_hand.contains(Card.ACE)) {
             // get total t2: assuming ace = 11
@@ -43,11 +43,11 @@ public class Move {
             }
             // check if greater is less than 17
             if (greater < 17) {
-                return true;
+                return "hit";
             } else if (greater < 22) {
-                return false;
+                return "stand";
             } else {
-                return false; // catch if something went wrong.
+                return "stand"; // if greater than 21, dealer busts and return stand
             }
         } else { /* if dealer doesn't have an ACE */
 
@@ -59,12 +59,12 @@ public class Move {
             }
             // check if total is less than 17
             if (total < 17) {
-                return true;
+                return "hit";
             } // check if total is less than 22
             else if (total < 22) {
-                return false;
-            } else { /* if greater than 21, dealer busts and return null */
-                return false;
+                return "stand";
+            } else { /* if greater than 21, dealer busts and return stand */
+                return "stand";
             }
         }
     }
@@ -74,7 +74,7 @@ public class Move {
      * @param player_hand
      * @return string of "what to do"
      */
-    String too_naive(ArrayList<Integer> player_hand) {
+    static String naive_decision(ArrayList<Integer> player_hand) {
         // check if player has an ACE
         if (player_hand.contains(Card.ACE)) {
             // get total assuming ACE = 11
@@ -106,7 +106,7 @@ public class Move {
                 return "stand";
             } else { /* catch if somehow it got here */
 
-                return null;
+                return "stand";
             }
         } else { /* If player doesn't have an ACE */
 
@@ -123,7 +123,7 @@ public class Move {
                 return "stand";
             } else { /* if greater than 21, player busts */
 
-                return null;
+                return "stand";
             }
         }
     }
@@ -143,7 +143,7 @@ public class Move {
      * @param dealer_hand
      * @return string of "what to do"
      */
-    String naive_decision(ArrayList<Integer> player_hand, ArrayList<Integer> dealer_hand) {
+    static String naive_decision(ArrayList<Integer> player_hand, ArrayList<Integer> dealer_hand) {
         if (player_hand.contains(Card.ACE)) {
             // get totals: t1 (ACE = 1) and t2 (ACE = 11)
             int t1 = 0;
@@ -236,7 +236,7 @@ public class Move {
                             }
                         }
                     } else {
-                        return null;
+                        return "stand";
                     }
 
                 }
@@ -250,7 +250,7 @@ public class Move {
                 }
             } else { /* catcher */
 
-                return null;
+                return "stand";
             }
         } else {
             // get player_hand total
@@ -263,7 +263,12 @@ public class Move {
             } else if (total == 9) {
                 if (dealer_hand.get(0) == 3 || dealer_hand.get(0) == 4
                         || dealer_hand.get(0) == 5 || dealer_hand.get(0) == 6) {
-                    return "double down";
+                    // double down only if player has 2 cards
+                            if (player_hand.size() == 2){
+                                return "double down";
+                            } else { /* else hit */
+                                return "hit";
+                            }
                 } else { /* if 2 or 7 and above*/
 
                     return "hit";
@@ -273,16 +278,25 @@ public class Move {
                         || dealer_hand.get(0) == 4 || dealer_hand.get(0) == 5
                         || dealer_hand.get(0) == 6 || dealer_hand.get(0) == 7
                         || dealer_hand.get(0) == 8 || dealer_hand.get(0) == 9) {
-                    return "double down";
+                    // double down only if player has 2 cards
+                            if (player_hand.size() == 2){
+                                return "double down";
+                            } else { /* else hit */
+                                return "hit";
+                            }
                 } else {/* if 10 or ACE*/
-
                     return "hit";
                 }
             } else if (total == 11) {
                 if (dealer_hand.get(0) == Card.ACE) {
                     return "hit";
                 } else { /* if 2:10 */
-                    return "double down";
+                    // double down only if player has 2 cards
+                            if (player_hand.size() == 2){
+                                return "double down";
+                            } else { /* else hit */
+                                return "hit";
+                            }
                 }
             } else if (total == 12) {
                 if (dealer_hand.get(0) == 4 || dealer_hand.get(0) == 5
@@ -302,7 +316,7 @@ public class Move {
             } else if (total >= 17 && total <= 21) {
                 return "stand";
             } else if (total >= 22) {
-                return null;
+                return "stand";
             } else { /* this statement should never be reached */
 
                 return null;

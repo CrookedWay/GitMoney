@@ -52,9 +52,9 @@ public class Card {
     public final static int EIGHT = 8;
     public final static int NINE  = 9;
     public final static int TEN   = 10;
-    public final static int JACK  = 11;
-    public final static int QUEEN = 12;
-    public final static int KING  = 13;
+    public final static int JACK  = 10;
+    public final static int QUEEN = 10;
+    public final static int KING  = 10;
 
     public Card(int rank, int suit) {
         assert isValidRank(rank);
@@ -101,12 +101,12 @@ public class Card {
             return "Nine";
         case TEN:
             return "Ten";
-        case JACK:
-            return "Jack";
-        case QUEEN:
-            return "Queen";
-        case KING:
-            return "King";
+        //case JACK:
+            //return "Jack";
+        //case QUEEN:
+            //return "Queen";
+        //case KING:
+            //return "King";
         default:
             //Handle an illegal argument.  There are generally two
             //ways to handle invalid arguments, throwing an exception
