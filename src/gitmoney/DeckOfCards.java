@@ -20,8 +20,12 @@ package gitmoney;
    	 int i = 0;
     
    	 for ( int rank = 1; rank <= 13; rank++ )
-		for ( int suit = 1; suit <= 4; suit++ )
-   		deckOfCards[i++] = new Card(rank, suit);
+		for ( int suit = 1; suit <= 4; suit++ ){
+                    if (rank <= 10)
+                        deckOfCards[i++] = new Card(rank, suit);
+                    else
+                        deckOfCards[i++] = new Card(10, suit);
+                }
     
    	 currentCard = 0;
       }
