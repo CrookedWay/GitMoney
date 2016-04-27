@@ -8,6 +8,7 @@ package gitmoney;
  */
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Main {
 
@@ -56,6 +57,15 @@ public class Main {
         return counter;
     }
 
+    /**
+     * 
+     * @return random bet value
+     */
+    private static int randomBet(){
+        int[] bets = {5, 10, 20};
+        int rnd = new Random().nextInt(bets.length);
+        return bets[rnd];
+    }
     
     public static void main(String[] args) {
         
@@ -84,12 +94,14 @@ public class Main {
         // main iterative loop
         while (numberOfHands < 100) {
             
-            // players bet
-            int bet = 10;
+            // player bet
+            int bet = randomBet();
 
             // play hand
             while (!handOver) {
 
+                System.out.println("Player bet: $" + bet);
+                
                 // reset values to false
                 push = false;
                 autoWin = false;
