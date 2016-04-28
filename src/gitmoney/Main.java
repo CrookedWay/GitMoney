@@ -210,13 +210,13 @@ public class Main {
             }
 
             //enact payout
-            playerMoney -= 10; // initial bet
+            playerMoney -= bet; // initial bet
             if (playerWin && autoWin) {
-                playerMoney += 15;
+                playerMoney += bet * (3/2);
             } else if (playerWin) {
-                playerMoney += 20;
+                playerMoney += bet * 2;
             } else if (push) {
-                playerMoney += 10;
+                playerMoney += bet;
             }
 
             // print some test results to console
