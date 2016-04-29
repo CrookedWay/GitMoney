@@ -324,4 +324,120 @@ public class Move {
         }
     }
     
+    public int calculateCardCount(ArrayList <Integer> discard, ArrayList<Integer> hand,ArrayList<Integer> dealerHand ){
+           int cardCount = 0;
+           if(!discard.isEmpty()){
+               //Essentially, this is going through a weighted average for the int values of all the cards in the discard pile.
+               for (int i = 0;i<=discard.size();i++){
+                   switch (discard.get(i)){
+                       case 2:
+                            cardCount+=1;
+                            break;
+                       case 3:
+                           cardCount+=1;
+                           break;
+                       case 4:
+                           cardCount+=2;
+                           break;
+                       case 5:
+                           cardCount+=2;
+                           break;
+                       case 6:
+                           cardCount+=2;
+                           break;
+                       case 7:
+                           cardCount+=1;
+                           break;
+                       case 8:
+                           cardCount+=0;
+                           break;
+                       case 9:
+                           cardCount-=1;
+                           break;
+                       case 10:
+                           cardCount-=2;
+                           break;
+                       case 1:
+                           cardCount+=0;
+                           break;
+                   }
+               }
+           }
+            if(!hand.isEmpty()){
+               //Essentially, this is going through a weighted average for the int values of all the cards in the players hand.
+               for (int i = 0;i<=hand.size();i++){
+                   switch (hand.get(i)){
+                       case 2:
+                            cardCount+=1;
+                            break;
+                       case 3:
+                           cardCount+=1;
+                           break;
+                       case 4:
+                           cardCount+=2;
+                           break;
+                       case 5:
+                           cardCount+=2;
+                           break;
+                       case 6:
+                           cardCount+=2;
+                           break;
+                       case 7:
+                           cardCount+=1;
+                           break;
+                       case 8:
+                           cardCount+=0;
+                           break;
+                       case 9:
+                           cardCount-=1;
+                           break;
+                       case 10:
+                           cardCount-=2;
+                           break;
+                       case 1:
+                           cardCount+=0;
+                           break;
+                             
+                           
+                   }
+               }
+            }
+              if(!dealerHand.isEmpty()){
+               //This should be the first card in the dealer's hand.
+                   switch (dealerHand.get(0)){
+                       case 2:
+                            cardCount+=1;
+                            break;
+                       case 3:
+                           cardCount+=1;
+                           break;
+                       case 4:
+                           cardCount+=2;
+                           break;
+                       case 5:
+                           cardCount+=2;
+                           break;
+                       case 6:
+                           cardCount+=2;
+                           break;
+                       case 7:
+                           cardCount+=1;
+                           break;
+                       case 8:
+                           cardCount+=0;
+                           break;
+                       case 9:
+                           cardCount-=1;
+                           break;
+                       case 10:
+                           cardCount-=2;
+                           break;
+                       case 1:
+                           cardCount+=0;
+                           break;
+                   }
+              }
+              return cardCount;
+            }
+    
 }

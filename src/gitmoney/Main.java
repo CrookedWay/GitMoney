@@ -92,7 +92,7 @@ public class Main {
         deck.shuffle(100);
 
         // main iterative loop
-        while (numberOfHands < 100) {
+        while (numberOfHands < 1000) {
             
             // player bet
             int bet = randomBet();
@@ -191,21 +191,38 @@ public class Main {
                 deck = new DeckOfCards();
                 deck.shuffle(100);
             }
+            
+            //get total of hand and dealerHand
+            int tplayer = totalHand(hand);
+            int tdealer = totalHand(dealerHand);
+            // if hand contains an ACE
+            if(hand.contains(1))
+                // if ACE = 11 and total hand less than 22
+                if((tplayer+10) < 22)
+                    // count ACE as 11
+                    tplayer += 10;
+            // if dealerHand contains an ACE
+            if(dealerHand.contains(1))
+                // if ACE == 11 and total dealerHand less than 22
+                if((tdealer+10) < 22)
+                    // count ACE as 11
+                    tdealer += 10;
+            
 
             //finish game
-            if (totalHand(hand) > 21) {
+            if (tplayer > 21) {
                 bust = true;
             }
-            if (totalHand(dealerHand) > 21) {
+            if (tdealer > 21) {
                 dBust = true;
             }
-            if (totalHand(dealerHand) < totalHand(hand) && !bust) {
+            if (tdealer < tplayer && !bust) {
                 playerWin = true;
             }
             if (!bust && dBust) {
                 playerWin = true;
             }
-            if (totalHand(dealerHand) == totalHand(hand)) {
+            if (tdealer == tplayer) {
                 push = true;
             }
 
@@ -226,7 +243,7 @@ public class Main {
             System.out.println("push? " + push);
             System.out.println("auto win? " + autoWin);
             System.out.println("cards left: " + deck.cardsLeft());
-            System.out.println("player money: " + playerMoney);
+            System.out.println("player money: $" + playerMoney);
             System.out.print("Player cards: ");
             for(Integer i : hand)
                 System.out.print(i + ", ");
