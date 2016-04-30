@@ -71,6 +71,8 @@ public class Main {
         
         // simulation variables
         boolean handOver = false;
+        int playerWins = 0;
+        int dealerWins = 0;
         int numberOfHands = 0;
         int playerMoney = 1000;
         boolean playerTurnOver = false;
@@ -92,7 +94,7 @@ public class Main {
         deck.shuffle(100);
 
         // main iterative loop
-        while (numberOfHands < 1000) {
+        while (numberOfHands < 5) {
             
             // player bet
             int bet = randomBet();
@@ -128,16 +130,33 @@ public class Main {
                 temp = scrub(deck.deal());
                 // dealers second card is not added to discard to keep hidden untill dealer move
                 dealerHand.add(temp); // dealer hand
+                
+                int tplayer = totalHand(hand);
+                int tdealer = totalHand(dealerHand);
+                
+                 // if hand contains an ACE
+                if(hand.contains(1))
+                    // if ACE = 11 and total hand less than 22
+                    if((tplayer+10) < 22)
+                        // count ACE as 11
+                        tplayer += 10;
+
+                // if dealerHand contains an ACE
+                if(dealerHand.contains(1))
+                    // if ACE == 11 and total dealerHand less than 22
+                    if((tdealer+10) < 22)
+                        // count ACE as 11
+                        tdealer += 10;
 
                 // determine if autowin is to occur or push based on Blackjack
-                if (totalHand(dealerHand) == 21 && totalHand(hand) != 21) {
+                if (tdealer == 21 && tplayer != 21) {
                     autoWin = true;
                 }
-                if (totalHand(hand) == 21 && totalHand(dealerHand) != 21) {
+                if (tplayer == 21 && tdealer != 21) {
                     autoWin = true;
                     playerWin = true;
                 }
-                if (totalHand(hand) == 21 && totalHand(dealerHand) == 21) {
+                if (tplayer == 21 && tdealer == 21) {
                     push = true;
                 }
 
@@ -145,7 +164,6 @@ public class Main {
                     break;
                 }
 
-                System.out.println(Move.naive_decision(hand, dealerHand));
                 System.out.println("auto win: " + autoWin);
                 move = Move.naive_decision(hand, dealerHand);
 
@@ -174,11 +192,12 @@ public class Main {
 
                 // Dealer decision (if necessary)
                 if (!bust && !autoWin) {
-                    while (totalHand(dealerHand) <= 17) {
+                    move = Move.dealer_move(dealerHand);
+                    while (!move.equals("stand")){
                         temp = scrub(deck.deal());
                         discard.add(temp);
                         dealerHand.add(temp);
-
+                        move = Move.dealer_move(dealerHand);
                     }
                 }
                 
@@ -230,15 +249,19 @@ public class Main {
             playerMoney -= bet; // initial bet
             if (playerWin && autoWin) {
                 playerMoney += bet * (3/2);
+                playerWins++;
             } else if (playerWin) {
                 playerMoney += bet * 2;
+                playerWins++;
             } else if (push) {
                 playerMoney += bet;
             }
+            else
+                dealerWins++;
 
             // print some test results to console
-            System.out.println("player total final: " + totalHand(hand));
-            System.out.println("dealer total final: " + totalHand(dealerHand));
+            System.out.println("player total final: " + tplayer);
+            System.out.println("dealer total final: " + tdealer);
             System.out.println("player win? " + playerWin);
             System.out.println("push? " + push);
             System.out.println("auto win? " + autoWin);
@@ -252,7 +275,10 @@ public class Main {
             for (Integer i : dealerHand)
                 System.out.print(i+", ");
             numberOfHands++;
-            System.out.println("\n" + numberOfHands + "\n");
+            System.out.println("\nPlayer wins: " + playerWins);
+            System.out.println("Dealer wins: " + dealerWins);
+            System.out.println("Player win ration: " + (double)playerWins /  (double)numberOfHands);
+            System.out.println(numberOfHands + "\n");
 
             // reset hand switch
             handOver = false;
